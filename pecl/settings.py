@@ -70,11 +70,7 @@ ITEM_PIPELINES = {
     'pecl.pipelines.DownloadPipeline': 1,
 }
 
-# 获取当前爬虫项目的绝对路径，并组装新的文件路径
-#project_dir = os.path.abspath(os.path.dirname(__file__))
-#FILES_STORE = os.path.join(project_dir, 'packages')
-FILES_STORE = 'packages'
-
+FILES_STORE = 'get'
 
 # 图像管道避免下载最近已经下载的图片。使用 FILES_EXPIRES (或 IMAGES_EXPIRES) 设置可以调整失效期限，
 # 可以用天数来指定
