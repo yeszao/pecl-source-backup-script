@@ -34,7 +34,7 @@ class PackageSpider(scrapy.Spider):
             url = url.strip()
             if url:
                 file_ext = os.path.splitext(url)[-1]
-                if file_ext in ('.tgz', '.zip', '.gz'):
+                if file_ext in ('.tgz', '.gz', 'bz2', 'xz'):
                     item['file_urls'].append(urljoin(self.base_url, url))
 
         return item
