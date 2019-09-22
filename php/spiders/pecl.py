@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import scrapy
 
-from ..items import PeclItem
-from urllib.parse import urljoin
+from ..items import DownloadItem
+from urllib.parse import urljoin, urlparse
 import os
 
 
@@ -12,10 +12,6 @@ class PeclSpider(scrapy.Spider):
     start_urls = ['https://pecl.php.net/package-stats.php']
 
     base_url = 'https://pecl.php.net/'
-
-    custom_settings = {
-        'ITEM_PIPELINES': {'php.pipelines.PeclPipeline': 1}
-    }
 
     def parse(self, response):
         package_urls = response.xpath('//td[@class="content"]/table[3]//td[1]/a/@href').getall()
@@ -27,7 +23,7 @@ class PeclSpider(scrapy.Spider):
             )
 
     def parse_detail(self, response):
-        item = PeclItem()
+        item = DownloadItem()
 
         item['name'] = response.xpath("//h2/text()").get().strip()
 
@@ -38,6 +34,10 @@ class PeclSpider(scrapy.Spider):
             if url:
                 file_ext = os.path.splitext(url)[-1]
                 if file_ext in ('.tgz', '.gz', 'bz2', 'xz'):
-                    item['file_urls'].append(urljoin(self.base_url, url))
+                    scheme = urlparse(url).scheme
+                    if scheme:
+                        item['file_urls'] = url
+                    else:
+                        item['file_urls'].append(urljoin(self.base_url, url))
 
         return item
