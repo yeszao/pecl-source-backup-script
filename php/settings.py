@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for pecl project
+# Scrapy settings for php project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,16 +9,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-import os
+BOT_NAME = 'php'
 
-BOT_NAME = 'pecl'
-
-SPIDER_MODULES = ['pecl.spiders']
-NEWSPIDER_MODULE = 'pecl.spiders'
+SPIDER_MODULES = ['php.spiders']
+NEWSPIDER_MODULE = 'php.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'pecl (+http://www.yourdomain.com)'
+#USER_AGENT = 'php (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -49,13 +47,13 @@ CONCURRENT_REQUESTS = 2
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'pecl.middlewares.PeclSpiderMiddleware': 543,
+#    'php.middlewares.phpSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'pecl.middlewares.PeclDownloaderMiddleware': 543,
+#    'php.middlewares.phpDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -66,11 +64,11 @@ CONCURRENT_REQUESTS = 2
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-    'pecl.pipelines.DownloadPipeline': 1,
-}
+#ITEM_PIPELINES = {
+#    'php.pipelines.phpPipeline': 1,
+#}
 
-FILES_STORE = 'get'
+FILES_STORE = 'downloads'
 
 # 图像管道避免下载最近已经下载的图片。使用 FILES_EXPIRES (或 IMAGES_EXPIRES) 设置可以调整失效期限，
 # 可以用天数来指定

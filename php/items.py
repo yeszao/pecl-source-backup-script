@@ -13,4 +13,3 @@ class PeclItem(scrapy.Item):
     name = scrapy.Field()
     file_urls = scrapy.Field()
     files = scrapy.Field()
-    referer = scrapy.Field()

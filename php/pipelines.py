@@ -6,11 +6,12 @@
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
 from scrapy.pipelines.files import FilesPipeline
+from os import path
 
 
-class DownloadPipeline(FilesPipeline):
+class PeclPipeline(FilesPipeline):
     def file_path(self, request, response=None, info=None):
-        return request.url.split('/')[-1]
+        return path.join('get', request.url.split('/')[-1])
 
 
 

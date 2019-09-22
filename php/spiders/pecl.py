@@ -1,20 +1,24 @@
 # -*- coding: utf-8 -*-
 import scrapy
 
-from pecl.items import PeclItem
+from ..items import PeclItem
 from urllib.parse import urljoin
 import os
 
 
-class PackageSpider(scrapy.Spider):
-    name = 'package'
+class PeclSpider(scrapy.Spider):
+    name = 'pecl'
     allowed_domains = ['pecl.php.net']
     start_urls = ['https://pecl.php.net/package-stats.php']
 
     base_url = 'https://pecl.php.net/'
 
+    custom_settings = {
+        'ITEM_PIPELINES': {'php.pipelines.PeclPipeline': 1}
+    }
+
     def parse(self, response):
-        package_urls = response.xpath('//td[@class="content"]/table[last()]//td[1]/a/@href').getall()
+        package_urls = response.xpath('//td[@class="content"]/table[3]//td[1]/a/@href').getall()
 
         for url in package_urls:
             yield scrapy.Request(
@@ -26,7 +30,6 @@ class PackageSpider(scrapy.Spider):
         item = PeclItem()
 
         item['name'] = response.xpath("//h2/text()").get().strip()
-        item['referer'] = response.url
 
         urls = response.xpath('//td[@class="content"]/table[3]//tr/td[3]/a/@href').getall()
         item['file_urls'] = []
