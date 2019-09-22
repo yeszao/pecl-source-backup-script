@@ -36,7 +36,7 @@ class PeclSpider(scrapy.Spider):
                 if file_ext in ('.tgz', '.gz', 'bz2', 'xz'):
                     scheme = urlparse(url).scheme
                     if scheme:
-                        item['file_urls'] = url
+                        item['file_urls'].append(url)
                     else:
                         item['file_urls'].append(urljoin(self.base_url, url))
 
