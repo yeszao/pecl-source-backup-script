@@ -14,6 +14,9 @@ BOT_NAME = 'php'
 SPIDER_MODULES = ['php.spiders']
 NEWSPIDER_MODULE = 'php.spiders'
 
+MEDIA_ALLOW_REDIRECTS = True
+
+USER_AGENT = 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'php (+http://www.yourdomain.com)'
