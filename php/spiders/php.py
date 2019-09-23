@@ -13,6 +13,10 @@ class PhpSpider(scrapy.Spider):
 
     base_url = 'https://www.php.net/'
 
+    custom_settings = {
+        'ITEM_PIPELINES': {'php.pipelines.PhpPipeline': 1}
+    }
+
     def parse(self, response):
         item = DownloadItem()
         urls = response.xpath('//section[@id="layout-content"]//ul/li/a[contains(text(), "PHP") or contains(text(), "Source")]/@href').getall()

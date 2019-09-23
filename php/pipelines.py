@@ -7,8 +7,14 @@
 
 from scrapy.pipelines.files import FilesPipeline
 from urllib.parse import urlparse
+from os.path import join
 
 
-class PathPipeline(FilesPipeline):
+class PeclPipeline(FilesPipeline):
     def file_path(self, request, response=None, info=None):
-        return urlparse(request.url).path
+        return join('pecl', urlparse(request.url).path)
+
+
+class PhpPipeline(FilesPipeline):
+    def file_path(self, request, response=None, info=None):
+        return join('php', urlparse(request.url).path)

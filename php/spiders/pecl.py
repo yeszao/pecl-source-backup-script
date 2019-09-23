@@ -13,6 +13,10 @@ class PeclSpider(scrapy.Spider):
 
     base_url = 'https://pecl.php.net/'
 
+    custom_settings = {
+        'ITEM_PIPELINES': {'php.pipelines.PhpPipeline': 1}
+    }
+
     def parse(self, response):
         package_urls = response.xpath('//td[@class="content"]/table[3]//td[1]/a/@href').getall()
 

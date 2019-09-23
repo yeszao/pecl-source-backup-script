@@ -68,9 +68,9 @@ CONCURRENT_REQUESTS = 2
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-   'php.pipelines.PathPipeline': 1,
-}
+# ITEM_PIPELINES = {
+#    'php.pipelines.PathPipeline': 1,
+# }
 
 FILES_STORE = 'downloads'
 
