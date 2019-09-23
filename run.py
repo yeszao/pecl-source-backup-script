@@ -1,32 +1,50 @@
 from scrapy.cmdline import execute
 import schedule
 import time
-import subprocess
-from os.path import join, abspath, dirname
+import oss2
+from config import *
+from php.settings import FILES_STORE
+import os
 
 
 def pecl():
     execute(['scrapy', 'crawl', 'pecl'])
-    push_pecl()
 
 
 def php():
     execute(['scrapy', 'crawl', 'php'])
 
 
-def push_pecl():
-    dir = abspath(dirname(__file__))
-    git_dir = join(dir, 'downloads/pecl/get/.git')
-    subprocess.check_output(['git', '--git-dir=' + git_dir, 'add', '*'])
-    subprocess.check_output(['git', '--git-dir=' + git_dir, 'commit', '-m', 'update'])
-    subprocess.check_output(['git', '--git-dir=' + git_dir, 'push', 'gitee', 'master'])
-    subprocess.check_output(['git', '--git-dir=' + git_dir, 'push', 'github', 'master'])
+def upload():
+    auth = oss2.Auth(OSS_ACCESS_KEY_ID, OSS_ACCESS_KEY_SECRET)
+    bucket = oss2.Bucket(auth, OSS_URL, OSS_BUCKET_NAME)
+
+    files_info = os.walk(FILES_STORE)
+
+    for path, dirs, names in files_info:
+        if names:
+            for filename in names:
+                if filename.startswith('.'):
+                    continue
+
+                local_path = os.path.join(path, filename)
+                remote_key = path.lstrip(FILES_STORE).lstrip('/')
+
+                if bucket.object_exists(remote_key):
+                    logging.info('File '+remote_key+' is exist (@-@)')
+                else:
+                    bucket.put_object_from_file(remote_key, local_path)
+                    logging.info('File ' + local_path+' uploaded (^_^)')
 
 
 if __name__ == '__main__':
+    import logging
+    import sys
+    logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     #schedule.every().day.at("2:30").do(pecl)
-    schedule.every(1).minutes.do(push_pecl)
+    #schedule.every(1).minutes.do(upload)
+    upload()
 
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    # while True:
+    #     schedule.run_pending()
+    #     time.sleep(1)

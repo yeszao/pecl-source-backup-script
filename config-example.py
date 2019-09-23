@@ -1,0 +1,6 @@
+# coding: utf-8
+
+OSS_URL = ''
+OSS_BUCKET_NAME = ''
+OSS_ACCESS_KEY_ID = ''
+OSS_ACCESS_KEY_SECRET = ''

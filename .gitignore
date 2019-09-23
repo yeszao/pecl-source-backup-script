@@ -5,3 +5,4 @@ venv/
 .DS_Store
 nohup.out
 *.log
+config.py
