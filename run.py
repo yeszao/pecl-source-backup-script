@@ -27,8 +27,10 @@ def upload():
                 if filename.startswith('.'):
                     continue
 
-                local_path = os.path.join(path, filename)
-                remote_key = path.lstrip(FILES_STORE).lstrip('/')
+                local_path = os.path.join(path, filename).lstrip()
+                remote_key = os.path.join(path[(path.find('/') + 1):], filename)
+
+                logging.info("Uploading %s --> %s" % (local_path, remote_key))
 
                 if bucket.object_exists(remote_key):
                     logging.info('File '+remote_key+' is exist (@-@)')
