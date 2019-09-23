@@ -8,9 +8,11 @@ certifi==2019.9.11
 cffi==1.12.3
 chardet==3.0.4
 constantly==15.1.0
+cos-python-sdk-v5==1.7.4
 crcmod==1.7
 cryptography==2.7
 cssselect==1.1.0
+dicttoxml==1.7.4
 hyperlink==19.0.0
 idna==2.8
 incremental==17.5.0
