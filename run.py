@@ -5,6 +5,8 @@ import oss2
 from config import *
 from php.settings import FILES_STORE
 import os
+import logging
+import sys
 
 
 def pecl():
@@ -33,15 +35,13 @@ def upload():
                 logging.info("Uploading %s --> %s" % (local_path, remote_key))
 
                 if bucket.object_exists(remote_key):
-                    logging.info('File '+remote_key+' is exist (@-@)')
+                    logging.info('File exist (@-@)')
                 else:
                     bucket.put_object_from_file(remote_key, local_path)
-                    logging.info('File ' + local_path+' uploaded (^_^)')
+                    logging.info('Upload success (^_^)')
 
 
 if __name__ == '__main__':
-    import logging
-    import sys
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     #schedule.every().day.at("2:30").do(pecl)
     #schedule.every(1).minutes.do(upload)
