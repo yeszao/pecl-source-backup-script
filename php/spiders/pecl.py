@@ -14,7 +14,7 @@ class PeclSpider(scrapy.Spider):
     base_url = 'https://pecl.php.net/'
 
     custom_settings = {
-        'ITEM_PIPELINES': {'php.pipelines.PhpPipeline': 1}
+        'ITEM_PIPELINES': {'php.pipelines.PeclPipeline': 1}
     }
 
     def parse(self, response):

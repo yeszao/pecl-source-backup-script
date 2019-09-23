@@ -12,9 +12,9 @@ from os.path import join
 
 class PeclPipeline(FilesPipeline):
     def file_path(self, request, response=None, info=None):
-        return join('pecl', urlparse(request.url).path)
+        return join('pecl', urlparse(request.url).path.lstrip('/'))
 
 
 class PhpPipeline(FilesPipeline):
     def file_path(self, request, response=None, info=None):
-        return join('php', urlparse(request.url).path)
+        return join('php', urlparse(request.url).path.lstrip('/'))
