@@ -8,13 +8,30 @@
 from scrapy.pipelines.files import FilesPipeline
 from urllib.parse import urlparse
 from os.path import join
+from scrapy.http.request import Request
+import re
 
 
-class PeclPipeline(FilesPipeline):
+class PathPipeline(FilesPipeline):
+    def get_media_requests(self, item, info):
+        for url in item['file_urls']:
+            yield Request(url, meta={'item': item})
+
     def file_path(self, request, response=None, info=None):
-        return join('pecl', urlparse(request.url).path.lstrip('/'))
+        return urlparse(request.url).path.lstrip('/')
 
 
-class PhpPipeline(FilesPipeline):
+class PeclPipeline(PathPipeline):
     def file_path(self, request, response=None, info=None):
-        return join('php', urlparse(request.url).path.lstrip('/'))
+        pecl_name = request.meta['item']['name']
+        pecl_version_name = request.url.split('/')[-1]
+
+        return join('pecl', pecl_name, pecl_version_name)
+
+
+class PhpPipeline(PathPipeline):
+    def file_path(self, request, response=None, info=None):
+        php_version_name = request.url.split('/')[-1]
+        second_version = re.findall('php-(\d+\.\d+)', php_version_name)[0]
+
+        return join('php', second_version, php_version_name)
