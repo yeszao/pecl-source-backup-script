@@ -19,8 +19,8 @@ def push_pecl():
     git_dir = join(dir, 'downloads/pecl/get/.git')
     subprocess.check_output(['git', '--git-dir=' + git_dir, 'add', '*'])
     subprocess.check_output(['git', '--git-dir=' + git_dir, 'commit', '-m', 'update'])
-    subprocess.check_output(['git', '--git-dir=' + git_dir, 'push', 'origin', 'gitee'])
-    subprocess.check_output(['git', '--git-dir=' + git_dir, 'push', 'origin', 'github'])
+    subprocess.check_output(['git', '--git-dir=' + git_dir, 'push', 'gitee', 'master'])
+    subprocess.check_output(['git', '--git-dir=' + git_dir, 'push', 'github', 'master'])
 
 
 if __name__ == '__main__':
