@@ -21,7 +21,7 @@ def upload(directory):
                     continue
 
                 local_path = os.path.join(path, filename).lstrip()
-                remote_key = os.path.join(path[(path.find('/') + 1):], filename)
+                remote_key = os.path.join(path.lstrip(directory.strip('/')).strip('/'), filename)
 
                 logging.info("Uploading %s --> %s" % (local_path, remote_key))
 
