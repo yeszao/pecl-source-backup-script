@@ -10,7 +10,7 @@ chardet==3.0.4
 constantly==15.1.0
 cos-python-sdk-v5==1.7.4
 crcmod==1.7
-cryptography==2.7
+cryptography==3.2
 cssselect==1.1.0
 dicttoxml==1.7.4
 hyperlink==19.0.0
